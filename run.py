@@ -40,6 +40,8 @@ def main(save: bool = False, use_saved: bool = False) -> None:
 
                 for _, nextdict in progress_storing_folder(info, dataset_names, "name"):
                     dataset_name = nextdict["name"]
+                    if dataset_name == "cod-ps-test":
+                        continue
                     dataset = simland.generate_dataset(dataset_name)
                     if dataset:
                         dataset.update_from_yaml()

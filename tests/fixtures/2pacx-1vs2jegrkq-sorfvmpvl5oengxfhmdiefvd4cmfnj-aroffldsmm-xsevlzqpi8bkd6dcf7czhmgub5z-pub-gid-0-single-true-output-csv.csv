@@ -1,0 +1,17 @@
+Dataset,Field,Label,Value
+cod-ps-test,title,Title of Dataset,Test - Subnational Population Statistics
+cod-ps-test,name,Dataset URL,cod-ps-test
+cod-ps-test,notes,Description,"Afghanistan administrative levels 0 (country), and 1 (province) population statistics. REFERENCE YEAR: 2021"
+cod-ps-test,dataset_source,Source,National Statistic and Information Authority (NSIA) Afghanistan
+cod-ps-test,dataset_start_date,Reference Period start,2021-01-01
+cod-ps-test,dataset_end_date,Reference Period end,2021-12-31
+cod-ps-test,data_update_frequency,Expected Update Frequency,Every year
+cod-ps-test,groups,Location,Afghanistan
+cod-ps-test,license_title,License,Creative Commons Attribution for Intergovernmental Organisations
+cod-ps-test,methodology,Methodology,Other
+cod-ps-test,methodology_other,Define Methodology,Based on micro-census and remote sensing data.
+cod-ps-test,caveats,Caveats/Comments,Population figures from the original data have been rounded off to the nearest integer.
+cod-ps-test,resource_1_name,Resource Name,afg_admpop_adm1_2021_v2.csv
+cod-ps-test,resource_1_description,Description,2021 population estimates for Afghanistan administrative level 1 (province).
+cod-ps-test,resource_1_format,File Format,CSV
+cod-ps-test,resource_1_url,Download URL,https://data.humdata.org/dataset/17acb541-9431-409a-80a8-50eda7e8ebab/resource/dc7a5656-d557-404f-8b1d-494c7bbd0112/download/afg_admpop_adm1_2021_v2.csv

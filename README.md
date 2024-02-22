@@ -1,4 +1,5 @@
 ### Collector for Simland datasets
+[![Build Status](https://github.com/OCHA-DAP/hdx-scraper-simland/actions/workflows/run-python-tests.yaml/badge.svg)](https://github.com/OCHA-DAP/hdx-scraper-simland/actions/workflows/run-python-tests.yaml) [![Coverage Status](https://coveralls.io/repos/github/OCHA-DAP/hdx-scraper-simland/badge.svg?branch=main&ts=1)](https://coveralls.io/github/OCHA-DAP/hdx-scraper-simland?branch=main)
 
 This script connects to a google sheet containing metadata for Simland and surrounding territories and creates datasets in HDX. It is run every week.
 

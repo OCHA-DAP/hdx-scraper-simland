@@ -10,6 +10,7 @@ import logging
 
 from hdx.data.dataset import Dataset
 from hdx.data.hdxobject import HDXError
+from hdx.data.resource import Resource
 from hdx.utilities.dictandlist import dict_of_dicts_add
 
 logger = logging.getLogger(__name__)
@@ -69,13 +70,16 @@ class Simland:
             ongoing = False
         dataset.set_time_period(start_date, end_date, ongoing)
 
-        resources = dict()
+        resources = list()
+        resource_dict = dict()
         for key in metadata:
             if key.split("_")[0] == "resource":
                 resource_name = "_".join(key.split("_")[:2])
                 resource_item = "_".join(key.split("_")[2:])
-                dict_of_dicts_add(resources, resource_name, resource_item, metadata[key])
-        resources = [resources[key] for key in resources]
+                dict_of_dicts_add(resource_dict, resource_name, resource_item, metadata[key])
+        for key in resource_dict:
+            resource = Resource(resource_dict[key])
+            resources.append(resource)
 
         try:
             dataset.add_update_resources(resources)

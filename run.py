@@ -40,10 +40,7 @@ def main(save: bool = False, use_saved: bool = False) -> None:
 
                 for _, nextdict in progress_storing_folder(info, dataset_names, "name"):
                     dataset_name = nextdict["name"]
-                    dataset = simland.generate_dataset(
-                        dataset_name,
-                        configuration,
-                    )
+                    dataset = simland.generate_dataset(dataset_name)
                     if dataset:
                         dataset.update_from_yaml()
                         dataset["notes"] = dataset["notes"].replace(
@@ -65,6 +62,7 @@ def main(save: bool = False, use_saved: bool = False) -> None:
 if __name__ == "__main__":
     facade(
         main,
+        hdx_url="https://green.demo.data-humdata-org.ahconu.org",
         user_agent_config_yaml=join(expanduser("~"), ".useragents.yaml"),
         user_agent_lookup=lookup,
         project_config_yaml=join("config", "project_configuration.yaml")

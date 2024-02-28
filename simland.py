@@ -54,8 +54,7 @@ class Simland:
         dataset.set_organization("b3a25ac4-ac05-4991-923c-d25f47bef1ec")
         dataset.set_expected_update_frequency(metadata["data_update_frequency"])
         dataset.set_subnational(True)
-        # TODO: figure out how to add non-HDX locations. Might need to consult with dev about demo-lition script.
-        dataset.add_country_locations(metadata["groups"].split(","))
+        dataset.add_other_location(metadata["groups"])
 
         theme = dataset_name[:6]
         if theme == "cod-ps":

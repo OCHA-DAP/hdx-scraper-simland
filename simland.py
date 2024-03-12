@@ -54,19 +54,27 @@ class Simland:
         dataset.set_organization("b3a25ac4-ac05-4991-923c-d25f47bef1ec")
         dataset.set_expected_update_frequency(metadata["data_update_frequency"])
         dataset.set_subnational(True)
-        dataset.add_other_location(metadata["groups"])
+        locations = {
+            "eastland": "etl",
+            "northland": "ntl",
+            "simland": "sim",
+            "southland": "sld",
+            "westland": "wld",
+        }
+        location = metadata["groups"].lower()
+        location = locations.get(location, location)
+        dataset.add_other_location(location)
 
-        theme = dataset_name[:6]
-        if theme == "cod-ps":
-            tags = ["baseline population"]
-        if theme in ["cod-ab", "cod-em"]:
-            tags = ["administrative boundaries-divisions"]
-        dataset.add_tags(tags)
+        tags = metadata["tags"]
+        if tags:
+            tags = tags.split(",")
+            dataset.add_tags(tags)
 
-        start_date = metadata["dataset_start_date"]
+        start_date = metadata["dataset_start_date"].replace("_", "-")
         end_date = metadata["dataset_end_date"]
         ongoing = True
         if end_date:
+            end_date = end_date.replace("_", "-")
             ongoing = False
         dataset.set_time_period(start_date, end_date, ongoing)
 
@@ -82,6 +90,8 @@ class Simland:
             if key.split("_")[0] == "resource":
                 resource_name = "_".join(key.split("_")[:2])
                 resource_item = "_".join(key.split("_")[2:])
+                if resource_item == "url":
+                    metadata[key] = metadata[key].replace("/blob/", "/raw/")
                 dict_of_dicts_add(resource_dict, resource_name, resource_item, metadata[key])
         for key in resource_dict:
             resource = Resource(resource_dict[key])

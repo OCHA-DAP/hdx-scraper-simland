@@ -7,7 +7,9 @@ from os.path import join
 
 import pytest
 from hdx.api.configuration import Configuration
+from hdx.api.locations import Locations
 from hdx.data.vocabulary import Vocabulary
+from hdx.location.country import Country
 from hdx.utilities.downloader import Download
 from hdx.utilities.errors_onexit import ErrorsOnExit
 from hdx.utilities.path import temp_dir
@@ -69,6 +71,12 @@ class TestSimland:
             "id": "b891512e-9516-4bf5-962a-7a289772a2a1",
             "name": "approved",
         }
+        Locations.set_validlocations(
+            [
+                {"name": "afg", "title": "Afghanistan"},
+            ]
+        )
+        Country.countriesdata(use_live=False)
         return Configuration.read()
 
     def test_generate_dataset(self, configuration, fixtures):

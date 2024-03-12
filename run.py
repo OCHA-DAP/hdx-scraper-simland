@@ -7,8 +7,10 @@ import logging
 from os.path import expanduser, join
 
 from hdx.api.configuration import Configuration
+from hdx.api.locations import Locations
 from hdx.data.hdxobject import HDXError
 from hdx.facades.infer_arguments import facade
+from hdx.location.country import Country
 from hdx.utilities.downloader import Download
 from hdx.utilities.errors_onexit import ErrorsOnExit
 from hdx.utilities.path import progress_storing_folder, wheretostart_tempdir_batch
@@ -24,6 +26,18 @@ updated_by_script = "HDX Scraper: Simland"
 
 def main(save: bool = False, use_saved: bool = False) -> None:
     """Generate datasets and create them in HDX"""
+
+    Locations.set_validlocations(
+        [
+            {"name": "sim", "title": "Simland"},
+            {"name": "ntl", "title": "Northland"},
+            {"name": "etl", "title": "Eastland"},
+            {"name": "sld", "title": "Southland"},
+            {"name": "wtl", "title": "Westland"},
+        ]
+    )
+    Country.countriesdata(use_live=False)
+
     with ErrorsOnExit() as errors:
         with wheretostart_tempdir_batch(lookup) as info:
             folder = info["folder"]
@@ -56,7 +70,7 @@ def main(save: bool = False, use_saved: bool = False) -> None:
                                 batch=batch,
                                 ignore_fields=["resource:description"],
                             )
-                        except HDXError:
+                        except HDXError as error:
                             errors.add(f"Could not upload {dataset_name}")
                             continue
 

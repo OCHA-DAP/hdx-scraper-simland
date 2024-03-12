@@ -11,6 +11,7 @@ cod-ps-test,license_title,License,Creative Commons Attribution for Intergovernme
 cod-ps-test,methodology,Methodology,Other
 cod-ps-test,methodology_other,Define Methodology,Based on micro-census and remote sensing data.
 cod-ps-test,caveats,Caveats/Comments,Population figures from the original data have been rounded off to the nearest integer.
+cod-ps-test,cod_level,COD status,
 cod-ps-test,resource_1_name,Resource Name,afg_admpop_adm1_2021_v2.csv
 cod-ps-test,resource_1_description,Description,2021 population estimates for Afghanistan administrative level 1 (province).
 cod-ps-test,resource_1_format,File Format,CSV

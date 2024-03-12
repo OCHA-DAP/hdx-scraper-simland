@@ -70,6 +70,12 @@ class Simland:
             ongoing = False
         dataset.set_time_period(start_date, end_date, ongoing)
 
+        cod_level = metadata["cod_level"]
+        if cod_level and cod_level.lower() == "enhanced":
+            dataset["cod_level"] = "cod-enhanced"
+        if cod_level and cod_level.lower() == "standard":
+            dataset["cod_level"] = "cod-standard"
+
         resources = list()
         resource_dict = dict()
         for key in metadata:

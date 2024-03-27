@@ -33,11 +33,12 @@ class TestSimland:
         "owner_org": "b3a25ac4-ac05-4991-923c-d25f47bef1ec",
         "data_update_frequency": "365",
         "subnational": "1",
+        "cod_level": "cod-standard",
         "groups": [{"name": "afg"}],
         "tags": [
             {"name": "baseline population", "vocabulary_id": "b891512e-9516-4bf5-962a-7a289772a2a1"}
         ],
-        "dataset_date": "[2021-01-01T00:00:00 TO 2021-12-31T23:59:59]",
+        "dataset_date": "[2024-01-01T00:00:00 TO 2024-12-31T23:59:59]",
     }
     resource = {
         "name": "afg_admpop_adm1_2021_v2.csv",

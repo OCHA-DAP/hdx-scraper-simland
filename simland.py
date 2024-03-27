@@ -70,19 +70,8 @@ class Simland:
             tags = tags.split(",")
             dataset.add_tags(tags)
 
-        start_date = metadata["dataset_start_date"].replace("_", "-")
-        end_date = metadata["dataset_end_date"]
-        ongoing = True
-        if end_date:
-            end_date = end_date.replace("_", "-")
-            ongoing = False
-        dataset.set_time_period(start_date, end_date, ongoing)
-
-        cod_level = metadata["cod_level"]
-        if cod_level and cod_level.lower() == "enhanced":
-            dataset["cod_level"] = "cod-enhanced"
-        if cod_level and cod_level.lower() == "standard":
-            dataset["cod_level"] = "cod-standard"
+        dataset.set_time_period_year_range(2024, 2024)
+        dataset["cod_level"] = metadata["cod_level"]
 
         resources = list()
         resource_dict = dict()

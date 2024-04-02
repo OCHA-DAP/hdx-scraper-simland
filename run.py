@@ -29,10 +29,10 @@ def main(save: bool = False, use_saved: bool = False) -> None:
 
     Locations.set_validlocations(
         [
-            {"name": "sim", "title": "Simland"},
+            {"name": "sld", "title": "Simland"},
             {"name": "ntl", "title": "Northland"},
             {"name": "etl", "title": "Eastland"},
-            {"name": "sld", "title": "Southland"},
+            {"name": "stl", "title": "Southland"},
             {"name": "wtl", "title": "Westland"},
         ]
     )

@@ -57,9 +57,9 @@ class Simland:
         locations = {
             "eastland": "etl",
             "northland": "ntl",
-            "simland": "sim",
-            "southland": "sld",
-            "westland": "wld",
+            "simland": "sld",
+            "southland": "stl",
+            "westland": "wtl",
         }
         location = metadata["groups"].lower()
         location = locations.get(location, location)

@@ -44,10 +44,11 @@ class Simland:
                 "notes": metadata["notes"],
                 "dataset_source": metadata["dataset_source"],
                 "methodology": metadata["methodology"],
-                "methodology_other": metadata["methodology_other"],
                 "caveats": metadata["caveats"],
             }
         )
+        if metadata["methodology"] == "Other":
+            dataset["methodology_other"] = metadata["methodology_other"]
 
         dataset.set_maintainer("84e567b6-1d09-4f7e-96f5-b69c09028cbc")
         if metadata["organization"] == "OCHA Field Information Services Section (FISS)":

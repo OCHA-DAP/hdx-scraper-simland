@@ -27,17 +27,6 @@ updated_by_script = "HDX Scraper: Simland"
 def main(save: bool = False, use_saved: bool = False) -> None:
     """Generate datasets and create them in HDX"""
 
-    Locations.set_validlocations(
-        [
-            {"name": "sld", "title": "Simland"},
-            {"name": "ntl", "title": "Northland"},
-            {"name": "etl", "title": "Eastland"},
-            {"name": "stl", "title": "Southland"},
-            {"name": "wtl", "title": "Westland"},
-        ]
-    )
-    Country.countriesdata(use_live=False)
-
     with ErrorsOnExit() as errors:
         with wheretostart_tempdir_batch(lookup) as info:
             folder = info["folder"]
@@ -68,7 +57,8 @@ def main(save: bool = False, use_saved: bool = False) -> None:
                                 hxl_update=False,
                                 updated_by_script=updated_by_script,
                                 batch=batch,
-                                ignore_fields=["resource:description"],
+                                skip_validation=True,
+                                ignore_check=True,
                             )
                         except HDXError as error:
                             errors.add(f"Could not upload {dataset_name}")
@@ -78,7 +68,7 @@ def main(save: bool = False, use_saved: bool = False) -> None:
 if __name__ == "__main__":
     facade(
         main,
-        hdx_url="https://green.demo.data-humdata-org.ahconu.org",
+        hdx_url="https://blue.demo.data-humdata-org.ahconu.org",
         user_agent_config_yaml=join(expanduser("~"), ".useragents.yaml"),
         user_agent_lookup=lookup,
         project_config_yaml=join("config", "project_configuration.yaml")

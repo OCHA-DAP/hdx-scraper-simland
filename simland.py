@@ -74,6 +74,7 @@ class Simland:
         tags = metadata["tags"]
         if tags:
             tags = tags.split(",")
+            tags = [t.rstrip() for t in tags]
             dataset.add_tags(tags)
 
         dataset.set_time_period_year_range(2024, 2024)

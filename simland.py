@@ -46,12 +46,18 @@ class Simland:
                 "methodology": metadata["methodology"],
                 "methodology_other": metadata["methodology_other"],
                 "caveats": metadata["caveats"],
-                "license_title": metadata["license_title"],
             }
         )
 
         dataset.set_maintainer("84e567b6-1d09-4f7e-96f5-b69c09028cbc")
-        dataset.set_organization("b3a25ac4-ac05-4991-923c-d25f47bef1ec")
+        if metadata["organization"] == "OCHA Field Information Services Section (FISS)":
+            dataset.set_organization("b3a25ac4-ac05-4991-923c-d25f47bef1ec")
+        elif metadata["organization"] == "UNFPA":
+            dataset.set_organization("95aa8d05-b110-4607-9330-f2a779885493")
+        else:
+            self.errors.add(f"Could not find organization for {dataset_name}")
+            return None
+
         dataset.set_expected_update_frequency(metadata["data_update_frequency"])
         dataset.set_subnational(True)
         locations = {
@@ -71,7 +77,8 @@ class Simland:
             dataset.add_tags(tags)
 
         dataset.set_time_period_year_range(2024, 2024)
-        dataset["cod_level"] = metadata["cod_level"]
+        if metadata["cod_level"]:
+            dataset["cod_level"] = metadata["cod_level"]
 
         resources = list()
         resource_dict = dict()

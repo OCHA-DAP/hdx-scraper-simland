@@ -28,7 +28,6 @@ class TestSimland:
         "methodology": "Other",
         "methodology_other": "Based on micro-census and remote sensing data.",
         "caveats": "Population figures from the original data have been rounded off to the nearest integer.",
-        "license_title": "Creative Commons Attribution for Intergovernmental Organisations",
         "maintainer": "84e567b6-1d09-4f7e-96f5-b69c09028cbc",
         "owner_org": "b3a25ac4-ac05-4991-923c-d25f47bef1ec",
         "data_update_frequency": "365",

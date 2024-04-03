@@ -3,9 +3,9 @@ cod-ps-test,title,Title of Dataset,Test - Subnational Population Statistics
 cod-ps-test,name,Dataset URL,cod-ps-test
 cod-ps-test,notes,Description,"Afghanistan administrative levels 0 (country), and 1 (province) population statistics. REFERENCE YEAR: 2021"
 cod-ps-test,dataset_source,Source,National Statistic and Information Authority (NSIA) Afghanistan
+cod-ps-test,organization,Contributor,OCHA Field Information Services Section (FISS)
 cod-ps-test,data_update_frequency,Expected Update Frequency,Every year
 cod-ps-test,groups,Location,Afghanistan
-cod-ps-test,license_title,License,Creative Commons Attribution for Intergovernmental Organisations
 cod-ps-test,methodology,Methodology,Other
 cod-ps-test,methodology_other,Define Methodology,Based on micro-census and remote sensing data.
 cod-ps-test,caveats,Caveats/Comments,Population figures from the original data have been rounded off to the nearest integer.

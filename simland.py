@@ -50,7 +50,7 @@ class Simland:
         if metadata["methodology"] == "Other":
             dataset["methodology_other"] = metadata["methodology_other"]
 
-        dataset.set_maintainer("84e567b6-1d09-4f7e-96f5-b69c09028cbc")
+        dataset.set_maintainer("9429fda5-d84f-42e4-890d-e03bf8297f7b")
         if metadata["organization"] == "OCHA Field Information Services Section (FISS)":
             dataset.set_organization("b3a25ac4-ac05-4991-923c-d25f47bef1ec")
         elif metadata["organization"] == "UNFPA":

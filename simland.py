@@ -92,6 +92,8 @@ class Simland:
                     metadata[key] = metadata[key].replace("/blob/", "/raw/")
                 dict_of_dicts_add(resource_dict, resource_name, resource_item, metadata[key])
         for key in resource_dict:
+            if resource_dict[key]["format"] == "Geoservice":
+                continue
             resource = Resource(resource_dict[key])
             resources.append(resource)
 

@@ -43,9 +43,8 @@ class TestSimland:
         "name": "afg_admpop_adm1_2021_v2.csv",
         "description": "2021 population estimates for Afghanistan administrative level 1 (province).",
         "format": "csv",
-        "url": "https://data.humdata.org/dataset/17acb541-9431-409a-80a8-50eda7e8ebab/resource/dc7a5656-d557-404f-8b1d-494c7bbd0112/download/afg_admpop_adm1_2021_v2.csv",
-        "resource_type": "api",
-        "url_type": "api",
+        "resource_type": "file.upload",
+        "url_type": "upload",
     }
 
     @pytest.fixture(scope="function")

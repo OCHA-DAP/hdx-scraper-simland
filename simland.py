@@ -88,13 +88,19 @@ class Simland:
             if key.split("_")[0] == "resource":
                 resource_name = "_".join(key.split("_")[:2])
                 resource_item = "_".join(key.split("_")[2:])
-                if resource_item == "url":
-                    metadata[key] = metadata[key].replace("/blob/", "/raw/")
                 dict_of_dicts_add(resource_dict, resource_name, resource_item, metadata[key])
         for key in resource_dict:
             if resource_dict[key]["format"] == "Geoservice":
                 continue
+            if resource_dict[key]["format"] == "CSV":
+                filepath = self.retriever.download_file(
+                    url=resource_dict[key]["url"],
+                    filename=resource_dict[key]["name"]
+                )
+                resource_dict[key].pop("url")
             resource = Resource(resource_dict[key])
+            if resource_dict[key]["format"] == "CSV":
+                resource.set_file_to_upload(filepath)
             resources.append(resource)
 
         try:

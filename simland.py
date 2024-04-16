@@ -24,12 +24,14 @@ class Simland:
         self.errors = errors
         self.metadata = {}
 
-    def get_data(self):
+    def get_data(self, datasets=None):
         base_url = self.configuration["metadata_url"]
         _, iterator = self.retriever.get_tabular_rows(base_url, format="csv", dict_form=True)
 
         for row in iterator:
             dataset_id = row["Dataset"]
+            if datasets and dataset_id not in datasets:
+                continue
             dict_of_dicts_add(self.metadata, dataset_id, row["Field"], row["Value"])
 
         return [{"name": dataset_name} for dataset_name in sorted(self.metadata)]

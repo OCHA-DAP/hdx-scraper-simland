@@ -81,7 +81,9 @@ class TestSimland:
                     save=False,
                     use_saved=True,
                 )
-                simland = Simland(configuration, retriever, ErrorsOnExit())
+                simland = Simland(
+                    configuration, retriever, ErrorsOnExit(), review_mode=False
+                )
                 dataset_names = simland.get_data()
                 assert dataset_names == [{"name": "cod-ps-test"}]
 

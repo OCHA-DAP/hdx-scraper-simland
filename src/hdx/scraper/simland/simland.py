@@ -8,23 +8,34 @@ Reads Simland inputs and creates datasets.
 """
 
 import logging
+from typing import Dict, List, Optional
 
+from hdx.api.configuration import Configuration
 from hdx.data.dataset import Dataset
 from hdx.data.hdxobject import HDXError
 from hdx.data.resource import Resource
 from hdx.utilities.dictandlist import dict_of_dicts_add
+from hdx.utilities.errors_onexit import ErrorsOnExit
+from hdx.utilities.retriever import Retrieve
 
 logger = logging.getLogger(__name__)
 
 
 class Simland:
-    def __init__(self, configuration, retriever, errors):
+    def __init__(
+        self,
+        configuration: Configuration,
+        retriever: Retrieve,
+        errors: ErrorsOnExit,
+        review_mode: bool = False,
+    ):
         self.configuration = configuration
         self.retriever = retriever
         self.errors = errors
+        self.review_mode = review_mode
         self.metadata = {}
 
-    def get_data(self, datasets=None):
+    def get_data(self, datasets: Optional[List] = None) -> List[Dict[str, str]]:
         base_url = self.configuration["metadata_url"]
         _, iterator = self.retriever.get_tabular_rows(
             base_url, format="csv", dict_form=True
@@ -38,7 +49,7 @@ class Simland:
 
         return [{"name": dataset_name} for dataset_name in sorted(self.metadata)]
 
-    def generate_dataset(self, dataset_name):
+    def generate_dataset(self, dataset_name: str) -> Dataset | None:
         metadata = self.metadata[dataset_name]
 
         dataset = Dataset(
@@ -74,7 +85,10 @@ class Simland:
         }
         location = metadata["groups"].lower()
         location = locations.get(location, location)
-        dataset.add_other_location(location)
+        if self.review_mode:
+            dataset.add_country_location("can")
+        else:
+            dataset.add_other_location(location)
 
         tags = metadata["tags"]
         if tags:

@@ -8,7 +8,7 @@ from hdx.utilities.path import temp_dir
 from hdx.utilities.retriever import Retrieve
 from hdx.utilities.useragent import UserAgent
 
-from src.hdx.scraper.simland.simland import Simland
+from hdx.scraper.simland.simland import Simland
 
 
 class TestSimland:

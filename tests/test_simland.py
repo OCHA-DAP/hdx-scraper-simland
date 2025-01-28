@@ -1,9 +1,3 @@
-#!/usr/bin/python
-"""
-Unit tests for Simland.
-
-"""
-
 from os.path import join
 
 import pytest
@@ -23,11 +17,14 @@ class TestSimland:
     dataset = {
         "title": "Test - Subnational Population Statistics",
         "name": "cod-ps-test",
-        "notes": "Afghanistan administrative levels 0 (country), and 1 (province) population statistics. REFERENCE YEAR: 2021",
-        "dataset_source": "National Statistic and Information Authority (NSIA) Afghanistan",
+        "notes": "Afghanistan administrative levels 0 (country), and 1 (province) "
+        "population statistics. REFERENCE YEAR: 2021",
+        "dataset_source": "National Statistic and Information Authority (NSIA) "
+        "Afghanistan",
         "methodology": "Other",
         "methodology_other": "Based on micro-census and remote sensing data.",
-        "caveats": "Population figures from the original data have been rounded off to the nearest integer.",
+        "caveats": "Population figures from the original data have been rounded off to "
+        "the nearest integer.",
         "maintainer": "9429fda5-d84f-42e4-890d-e03bf8297f7b",
         "owner_org": "b3a25ac4-ac05-4991-923c-d25f47bef1ec",
         "data_update_frequency": "365",
@@ -44,7 +41,8 @@ class TestSimland:
     }
     resource = {
         "name": "afg_admpop_adm1_2021_v2.csv",
-        "description": "2021 population estimates for Afghanistan administrative level 1 (province).",
+        "description": "2021 population estimates for Afghanistan administrative level 1 "
+        "(province).",
         "format": "csv",
         "resource_type": "file.upload",
         "url_type": "upload",
@@ -86,12 +84,8 @@ class TestSimland:
             "test_simland", delete_on_success=True, delete_on_failure=False
         ) as folder:
             with Download() as downloader:
-                retriever = Retrieve(
-                    downloader, folder, fixtures, folder, False, True
-                )
-                simland = Simland(
-                    configuration, retriever, folder, ErrorsOnExit()
-                )
+                retriever = Retrieve(downloader, folder, fixtures, folder, False, True)
+                simland = Simland(configuration, retriever, folder, ErrorsOnExit())
                 dataset_names = simland.get_data()
                 assert dataset_names == [{"name": "cod-ps-test"}]
 

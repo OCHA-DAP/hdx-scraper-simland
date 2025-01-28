@@ -1,8 +1,6 @@
 #!/usr/bin/python
-"""
-Top level script. Calls other functions that generate datasets that this script then creates in HDX.
+"""simland scraper"""
 
-"""
 import logging
 from os.path import expanduser, join
 
@@ -11,7 +9,10 @@ from hdx.data.hdxobject import HDXError
 from hdx.facades.infer_arguments import facade
 from hdx.utilities.downloader import Download
 from hdx.utilities.errors_onexit import ErrorsOnExit
-from hdx.utilities.path import progress_storing_folder, wheretostart_tempdir_batch
+from hdx.utilities.path import (
+    progress_storing_folder,
+    wheretostart_tempdir_batch,
+)
 from hdx.utilities.retriever import Retrieve
 
 from simland import Simland
@@ -58,7 +59,7 @@ def main(save: bool = False, use_saved: bool = False) -> None:
                                 skip_validation=True,
                                 ignore_check=True,
                             )
-                        except HDXError as error:
+                        except HDXError:
                             errors.add(f"Could not upload {dataset_name}")
                             continue
 
@@ -69,5 +70,5 @@ if __name__ == "__main__":
         hdx_url="https://blue.demo.data-humdata-org.ahconu.org",
         user_agent_config_yaml=join(expanduser("~"), ".useragents.yaml"),
         user_agent_lookup=lookup,
-        project_config_yaml=join("config", "project_configuration.yaml")
+        project_config_yaml=join("config", "project_configuration.yaml"),
     )

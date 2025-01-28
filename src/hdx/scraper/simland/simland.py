@@ -6,6 +6,7 @@ Simland:
 Reads Simland inputs and creates datasets.
 
 """
+
 import logging
 
 from hdx.data.dataset import Dataset
@@ -26,7 +27,9 @@ class Simland:
 
     def get_data(self, datasets=None):
         base_url = self.configuration["metadata_url"]
-        _, iterator = self.retriever.get_tabular_rows(base_url, format="csv", dict_form=True)
+        _, iterator = self.retriever.get_tabular_rows(
+            base_url, format="csv", dict_form=True
+        )
 
         for row in iterator:
             dataset_id = row["Dataset"]
@@ -90,14 +93,16 @@ class Simland:
             if key.split("_")[0] == "resource":
                 resource_name = "_".join(key.split("_")[:2])
                 resource_item = "_".join(key.split("_")[2:])
-                dict_of_dicts_add(resource_dict, resource_name, resource_item, metadata[key])
+                dict_of_dicts_add(
+                    resource_dict, resource_name, resource_item, metadata[key]
+                )
         for key in resource_dict:
             if resource_dict[key]["format"] == "Geoservice":
                 continue
             if resource_dict[key]["format"] == "CSV":
                 filepath = self.retriever.download_file(
                     url=resource_dict[key]["url"],
-                    filename=resource_dict[key]["name"]
+                    filename=resource_dict[key]["name"],
                 )
                 resource_dict[key].pop("url")
             resource = Resource(resource_dict[key])
@@ -108,6 +113,8 @@ class Simland:
         try:
             dataset.add_update_resources(resources)
         except HDXError as ex:
-            self.errors.add(f"Dataset: {dataset['name']} resources could not be added. Error: {ex}")
+            self.errors.add(
+                f"Dataset: {dataset['name']} resources could not be added. Error: {ex}"
+            )
 
         return dataset

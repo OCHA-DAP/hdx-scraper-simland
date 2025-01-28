@@ -15,7 +15,7 @@ from hdx.utilities.path import (
 )
 from hdx.utilities.retriever import Retrieve
 
-from simland import Simland
+from src.hdx.scraper.simland.simland import Simland
 
 logger = logging.getLogger(__name__)
 

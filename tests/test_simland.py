@@ -1,8 +1,9 @@
 #!/usr/bin/python
 """
-Unit tests for peacekeeping.
+Unit tests for Simland.
 
 """
+
 from os.path import join
 
 import pytest
@@ -15,7 +16,6 @@ from hdx.utilities.errors_onexit import ErrorsOnExit
 from hdx.utilities.path import temp_dir
 from hdx.utilities.retriever import Retrieve
 from hdx.utilities.useragent import UserAgent
-
 from simland import Simland
 
 
@@ -35,7 +35,10 @@ class TestSimland:
         "cod_level": "cod-standard",
         "groups": [{"name": "afg"}],
         "tags": [
-            {"name": "baseline population", "vocabulary_id": "b891512e-9516-4bf5-962a-7a289772a2a1"}
+            {
+                "name": "baseline population",
+                "vocabulary_id": "b891512e-9516-4bf5-962a-7a289772a2a1",
+            }
         ],
         "dataset_date": "[2024-01-01T00:00:00 TO 2024-12-31T23:59:59]",
     }
@@ -83,8 +86,12 @@ class TestSimland:
             "test_simland", delete_on_success=True, delete_on_failure=False
         ) as folder:
             with Download() as downloader:
-                retriever = Retrieve(downloader, folder, fixtures, folder, False, True)
-                simland = Simland(configuration, retriever, folder, ErrorsOnExit())
+                retriever = Retrieve(
+                    downloader, folder, fixtures, folder, False, True
+                )
+                simland = Simland(
+                    configuration, retriever, folder, ErrorsOnExit()
+                )
                 dataset_names = simland.get_data()
                 assert dataset_names == [{"name": "cod-ps-test"}]
 

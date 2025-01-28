@@ -18,10 +18,9 @@ logger = logging.getLogger(__name__)
 
 
 class Simland:
-    def __init__(self, configuration, retriever, folder, errors):
+    def __init__(self, configuration, retriever, errors):
         self.configuration = configuration
         self.retriever = retriever
-        self.folder = folder
         self.errors = errors
         self.metadata = {}
 

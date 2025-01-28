@@ -2,9 +2,6 @@ from os.path import join
 
 import pytest
 from hdx.api.configuration import Configuration
-from hdx.api.locations import Locations
-from hdx.data.vocabulary import Vocabulary
-from hdx.location.country import Country
 from hdx.utilities.downloader import Download
 from hdx.utilities.errors_onexit import ErrorsOnExit
 from hdx.utilities.path import temp_dir
@@ -50,43 +47,41 @@ class TestSimland:
     }
 
     @pytest.fixture(scope="function")
-    def fixtures(self):
-        return join("tests", "fixtures")
-
-    @pytest.fixture(scope="function")
-    def configuration(self):
+    def configuration(self, config_dir):
+        UserAgent.set_global("test")
         Configuration._create(
             hdx_read_only=True,
-            user_agent="test",
-            project_config_yaml=join("config", "project_configuration.yaml"),
+            hdx_site="prod",
+            project_config_yaml=join(config_dir, "project_configuration.yaml"),
         )
-        UserAgent.set_global("test")
-        tags = (
-            "baseline population",
-            "administrative boundaries-divisions",
-        )
-        Vocabulary._tags_dict = {tag: {"Action to Take": "ok"} for tag in tags}
-        tags = [{"name": tag} for tag in tags]
-        Vocabulary._approved_vocabulary = {
-            "tags": tags,
-            "id": "b891512e-9516-4bf5-962a-7a289772a2a1",
-            "name": "approved",
-        }
-        Locations.set_validlocations(
-            [
-                {"name": "afg", "title": "Afghanistan"},
-            ]
-        )
-        Country.countriesdata(use_live=False)
         return Configuration.read()
 
-    def test_generate_dataset(self, configuration, fixtures):
+    @pytest.fixture(scope="class")
+    def fixtures_dir(self):
+        return join("tests", "fixtures")
+
+    @pytest.fixture(scope="class")
+    def input_dir(self, fixtures_dir):
+        return join(fixtures_dir, "input")
+
+    @pytest.fixture(scope="class")
+    def config_dir(self, fixtures_dir):
+        return join("src", "hdx", "scraper", "simland", "config")
+
+    def test_simland(self, configuration, fixtures_dir, input_dir, config_dir):
         with temp_dir(
             "test_simland", delete_on_success=True, delete_on_failure=False
-        ) as folder:
-            with Download() as downloader:
-                retriever = Retrieve(downloader, folder, fixtures, folder, False, True)
-                simland = Simland(configuration, retriever, folder, ErrorsOnExit())
+        ) as tempdir:
+            with Download(user_agent="test") as downloader:
+                retriever = Retrieve(
+                    downloader=downloader,
+                    fallback_dir=tempdir,
+                    saved_dir=input_dir,
+                    temp_dir=tempdir,
+                    save=False,
+                    use_saved=True,
+                )
+                simland = Simland(configuration, retriever, ErrorsOnExit())
                 dataset_names = simland.get_data()
                 assert dataset_names == [{"name": "cod-ps-test"}]
 

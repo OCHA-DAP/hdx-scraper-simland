@@ -19,24 +19,28 @@ from src.hdx.scraper.simland.simland import Simland
 
 logger = logging.getLogger(__name__)
 
-lookup = "hdx-scraper-simland"
-updated_by_script = "HDX Scraper: Simland"
+_USER_AGENT_LOOKUP = "hdx-scraper-simland"
+_SAVED_DATA_DIR = "saved_data"  # Keep in repo to avoid deletion in /tmp
+_UPDATED_BY_SCRIPT = "HDX Scraper: Simland"
 
 
 def main(save: bool = False, use_saved: bool = False) -> None:
     """Generate datasets and create them in HDX"""
 
     with ErrorsOnExit() as errors:
-        with wheretostart_tempdir_batch(lookup) as info:
-            folder = info["folder"]
+        with wheretostart_tempdir_batch(folder=_USER_AGENT_LOOKUP) as info:
+            temp_dir = info["folder"]
             with Download() as downloader:
                 retriever = Retrieve(
-                    downloader, folder, "saved_data", folder, save, use_saved
+                    downloader=downloader,
+                    fallback_dir=temp_dir,
+                    saved_dir="saved_data",
+                    temp_dir=temp_dir,
+                    save=save,
+                    use_saved=use_saved,
                 )
-                folder = info["folder"]
-                batch = info["batch"]
                 configuration = Configuration.read()
-                simland = Simland(configuration, retriever, folder, errors)
+                simland = Simland(configuration, retriever, errors)
                 dataset_names = simland.get_data()
                 logger.info(f"Number of datasets to upload: {len(dataset_names)}")
 
@@ -54,8 +58,8 @@ def main(save: bool = False, use_saved: bool = False) -> None:
                             dataset.create_in_hdx(
                                 remove_additional_resources=True,
                                 hxl_update=False,
-                                updated_by_script=updated_by_script,
-                                batch=batch,
+                                updated_by_script=_UPDATED_BY_SCRIPT,
+                                batch=info["batch"],
                                 skip_validation=True,
                                 ignore_check=True,
                             )
@@ -69,6 +73,6 @@ if __name__ == "__main__":
         main,
         hdx_url="https://blue.demo.data-humdata-org.ahconu.org",
         user_agent_config_yaml=join(expanduser("~"), ".useragents.yaml"),
-        user_agent_lookup=lookup,
+        user_agent_lookup=_USER_AGENT_LOOKUP,
         project_config_yaml=join("config", "project_configuration.yaml"),
     )

@@ -41,9 +41,7 @@ class TestSimland:
         "name": "afg_admpop_adm1_2021_v2.csv",
         "description": "2021 population estimates for Afghanistan administrative level 1 "
         "(province).",
-        "format": "csv",
-        "resource_type": "file.upload",
-        "url_type": "upload",
+        "format": "CSV",
     }
 
     @pytest.fixture(scope="function")

@@ -73,7 +73,6 @@ def main(
                         try:
                             dataset.create_in_hdx(
                                 remove_additional_resources=True,
-                                hxl_update=False,
                                 updated_by_script=_UPDATED_BY_SCRIPT,
                                 batch=info["batch"],
                                 skip_validation=True,
